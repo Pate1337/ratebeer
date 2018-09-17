@@ -1,0 +1,10 @@
+brewery = Brewery.create(name: 'BrewDog', year: 2007)
+b = Beer.create(name: 'Punk IPA', style: 'IPA', brewery: brewery)
+Beer.create(name: 'Nanny State', style: 'lowalcohol', brewery: brewery)
+c = _
+b.ratings.create(score: 45)
+b.ratings.create(score: 35)
+b.ratings.create(score: 25)
+c.ratings.create(score: 10)
+c.ratings.create(score: 7)
+c.ratings.create(score: 5)
