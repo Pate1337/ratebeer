@@ -63,21 +63,21 @@ class BreweriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brewery_params
-      params.require(:brewery).permit(:name, :year)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params[:id])
+  end
 
-    def authenticate
-      admin_accounts = { "paavo" => "Pate1337" }
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "admin" and password == "secret" or username === "paavo" and password === "Pate1337"
-        # Keksi tähän tapa käydä tuo admin_accounts läpi
-      end 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brewery_params
+    params.require(:brewery).permit(:name, :year)
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      (username == "admin" && password == "secret") || (username == "paavo" && password == "Pate1337")
+      # Keksi tähän tapa käydä tuo admin_accounts läpi
     end
+  end
 end
