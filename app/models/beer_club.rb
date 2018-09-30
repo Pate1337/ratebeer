@@ -2,6 +2,6 @@ class BeerClub < ApplicationRecord
   has_many :users
 
   def to_s
-    "#{name}"
+    name.to_s
   end
 end

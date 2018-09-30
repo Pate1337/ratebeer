@@ -7,7 +7,6 @@ module RatingAverage
     sum = 0
     ratings.map { |rating| sum += rating.score }
     average = sum / ratings.length.to_f
-    puts average
-    average.to_s
+    average.to_f
   end
 end
