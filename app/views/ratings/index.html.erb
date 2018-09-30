@@ -6,9 +6,7 @@
   <% end %>
 </ul>
 
-<p>
-  <%= link_to 'Add new rating', new_rating_path %>
-</p>
+<%= link_to('Add new rating', new_rating_path) if current_user %>
 
 <p>
   Total ratings: <%= @ratings.count %>
