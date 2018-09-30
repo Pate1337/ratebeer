@@ -26,7 +26,7 @@ class User < ApplicationRecord
     return nil if ratings.empty?
 
     return ratings.first.beer.style if ratings.count == 1
-    
+
     puts 'Ja siihen loppu osaaminen'
   end
 end
