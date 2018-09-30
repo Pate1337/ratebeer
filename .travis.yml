@@ -4,3 +4,10 @@ rvm:
 script:
 - bundle exec rails db:migrate
 - bundle exec rspec -fd spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: QOUyRbSbgKSGGQxa7YKS6U5m01wkkvGdZYGPTpULK+OUA1hnf7j5qEUfAe3ZFNF4r5AxEloLkWV9H5FerltWqOxjx++IDGNGFDsNCyFfowv7tkyA31WZtU9Rl2P3wwxeQ4CCU0Fcmbt3kQYTedH+vjt9erCmfz2+dh5Aazh7+nf41xvEbjjgKyFx5A88PiiLKYYd4qjPZjyPr5usUyz99klu0AEEDlHqPKaPzQ5StDSxun8ZNRsvZpNV/5bRuJ2exPkXBxnDPODLyen5WaYL3316b23tyPUn7pbuemVQzjwmNGLvOll4J7p8tzk8/XlgAOWSqWFbW8kOM5PgN6zKjBCQPKsCTFW+vqfQJZ8fTRTD49px0PdjjwRcnLYNq+yFvrbswxHQ5RO0bbXqzlNlWiHwTHT4TJxF3COZl3IbwTZ1bFyvhFVX/bI/8YtxrV2IxNFMBmOE/HsCnczdpN0ysGzqWWbW/T0Zuu3ROKueYLI4Ih/uHWcKbQ4jHv00W5TJTPtmRxeMvuJ4y5guxTPgj2NZ1RmSqwzB7S/llCsz70ZANrJp5YNnkXt8pQNXy36unThnFPMSXoGRjNN/UgB9BDOVuCFui+DTHz6NUMpLrCNBg6FumhmD0YWhzjUPNv+wCHG7fvLQJRh0xM4Tb6bcqII8iUJWtwbwmSdl4EDQIMU=
+  app: paavonkaljasivu
+  on:
+    repo: Pate1337/ratebeer
