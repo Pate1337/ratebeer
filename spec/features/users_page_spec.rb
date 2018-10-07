@@ -41,7 +41,7 @@ describe "User" do
       create_beers_with_many_ratings({user: @user}, 15, 13)
       visit user_path(selected_user)
 
-      expect(page).to have_content 'has made 2 ratings, average rating 15.0'
+      expect(page).to have_content 'Has made 2 ratings, average rating 15.0'
       expect(page).to have_no_content 'anonymous 15'
     end
   end

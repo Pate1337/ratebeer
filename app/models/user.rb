@@ -2,7 +2,8 @@ class User < ApplicationRecord
   include RatingAverage
   has_many :ratings, dependent: :destroy # käyttäjällä on monta ratingia
   has_many :beers, through: :ratings
-  has_many :beer_clubs
+  has_many :memberships, dependent: :destroy
+  has_many :beer_clubs, through: :memberships
   validates :username, uniqueness: true, length: { minimum: 3 }
   validates :password, presence: true, length: { minimum: 4 }
   validate :password_must_contain_uppercase_and_number
@@ -10,6 +11,10 @@ class User < ApplicationRecord
 
   def average
     average_rating
+  end
+
+  def average_of(ratings)
+    ratings.sum(&:score).to_f / ratings.count
   end
 
   def password_must_contain_uppercase_and_number
@@ -25,8 +30,22 @@ class User < ApplicationRecord
   def favorite_style
     return nil if ratings.empty?
 
-    return ratings.first.beer.style if ratings.count == 1
+    style_ratings = ratings.group_by{ |r| r.beer.style }
+    averages = style_ratings.map do |style, ratings|
+      { style: style, score: average_of(ratings) }
+    end
 
-    puts 'Ja siihen loppu osaaminen'
+    averages.max_by{ |r| r[:score] }[:style]
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+
+    style_ratings = ratings.group_by{ |r| r.beer.brewery }
+    averages = style_ratings.map do |brewery, ratings|
+      { brewery: brewery, score: average_of(ratings) }
+    end
+
+    averages.max_by{ |r| r[:score] }[:brewery]
   end
 end

@@ -3,9 +3,16 @@
 <p>
   <strong><%= @user.username %></strong>
 </p>
-<p>
-  has made <%= @user.ratings.length %> ratings, average rating <%= @user.average %>
-</p>
+<% if @user.ratings.empty? %>
+  <p>has not rate any beer</p>
+<% else %>
+  <p>
+    Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %>
+  </p> 
+  <p>Favorite beer: <%= @user.favorite_beer.name %></p>
+  <p>Favorite brewery: <%= @user.favorite_brewery.name %></p>
+  <p>Preferred style: <%= @user.favorite_style %></p>
+<% end %>
 <p>
   <strong>Ratings</strong>
 </p>
@@ -19,6 +26,15 @@
     </li>
   <% end %>
 </ul>
+
+<p>
+  <% if @user.beer_clubs.any? %>
+    member of 
+    <% @user.beer_clubs.each do |club| %>
+      <li> <%= link_to club.name, club %> </li>
+    <% end %>
+  <% end %>
+</p>
 
 <p>Katsotaan deployaako travis</p>
 <% if @user == current_user %>

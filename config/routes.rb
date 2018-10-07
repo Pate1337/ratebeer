@@ -14,5 +14,11 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+  resources :places, only: [:index, :show]
+  # mikä generoi samat polut kuin seuraavat kaksi
+  # get 'places', to:'places#index'
+  # get 'places/:id', to:'places#show'
+
+  post 'places', to:'places#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

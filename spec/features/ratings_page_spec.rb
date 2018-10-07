@@ -34,4 +34,19 @@ describe "Rating" do
     expect(page).to have_content 'anonymous 10 Pekka'
     expect(page).to have_content 'anonymous 20 Pekka'
   end
+
+  it "when user removes a rating, it is deleted from database" do
+    schlenkerla = FactoryBot.create :brewery, name: 'Schlenkerla'
+    create_beer_with_rating({ user: user, style: 'Rauchbier', brewery: schlenkerla }, 20)
+    create_beer_with_rating({ user: user }, 10)
+    sign_in( username: 'Pekka', password: 'Foobar1')
+    visit user_path(user)
+
+    # etsitään sivun kaikista linkeistä ensimmäinen jonka teksti on delete
+    delete_link = all('a').select{ |l| l.text=='delete' }.first
+
+    expect{
+      delete_link.click
+    }.to change{Rating.count}.by(-1)
+  end 
 end

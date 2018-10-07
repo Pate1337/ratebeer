@@ -92,5 +92,43 @@ RSpec.describe User, type: :model do
 
       expect(user.favorite_style).to eq(beer.style)
     end
+
+    it "is the style of with highest average if several rated" do
+      create_beers_with_many_ratings({ user: user, style: 'Lager' }, 10, 20, 15, 7, 9)
+      create_beers_with_many_ratings({ user: user, style: 'IPA' }, 25, 45, 50, 50, 50 )
+      create_beers_with_many_ratings({ user: user, style: 'Alt' }, 50, 10, 8)
+
+      expect(user.favorite_style).to eq('IPA')
+    end 
+  end
+
+  describe "favorite brewery" do
+    let(:user){ FactoryBot.create(:user) }
+
+    it "has method for determining one" do
+      expect(user).to respond_to(:favorite_brewery)
+    end
+
+    it "without ratings does not have one" do
+      expect(user.favorite_brewery).to eq(nil)
+    end
+
+    it "is the brewery of the only rated if only one rating" do
+      favorite = FactoryBot.create(:brewery, name: 'Schlenkerla')
+      create_beer_with_rating({ user: user, brewery: favorite }, 25)
+
+      expect(user.favorite_brewery).to eq(favorite)
+    end  
+    
+    it "is the brewery of with highest average if several rated" do
+      favorite = FactoryBot.create(:brewery, name: 'Schlenkerla')
+      b1 = FactoryBot.create(:brewery)
+      b2 = FactoryBot.create(:brewery)
+      create_beers_with_many_ratings({ user: user, brewery: b1 }, 10, 20, 15, 7, 9)
+      create_beers_with_many_ratings({ user: user, brewery: favorite }, 25, 45 )
+      create_beers_with_many_ratings({ user: user, brewery: b2 }, 50, 10, 8)
+
+      expect(user.favorite_brewery).to eq(favorite)
+    end 
   end
 end

@@ -11,3 +11,5 @@ deploy:
   app: paavonkaljasivu
   on:
     repo: Pate1337/ratebeer
+env:
+  - BEERMAPPING_APIKEY=d5ef6aadf2daf5827decc525441a6596

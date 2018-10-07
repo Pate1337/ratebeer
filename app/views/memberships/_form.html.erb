@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= form.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :to_s) %>
+  <%= form.select :beer_club_id, options_from_collection_for_select(@clubs, :id, :name) %>
 
   <div class="actions">
     <%= form.submit %>

@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt', '~> 3.1.7'
+gem 'httparty'
 
 group :development, :test do
   gem 'sqlite3'
@@ -72,6 +73,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

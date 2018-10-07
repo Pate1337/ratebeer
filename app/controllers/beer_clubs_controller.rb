@@ -11,6 +11,13 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    if current_user.beer_clubs.exclude?(@beer_club) then
+      @membership = Membership.new
+      @membership.beer_club = @beer_club
+    else
+      @membership = Membership.where({ beer_club: @beer_club })[0]
+      puts @membership
+    end
   end
 
   # GET /beer_clubs/new
