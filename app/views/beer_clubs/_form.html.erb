@@ -11,22 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input name="beer_club[name]" type="text" class="form-control" id="name" placeholder="Name">
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :founded %>
-    <%= form.number_field :founded %>
+  <div class="form-group row">
+    <label for="founded" class="col-sm-2 col-form-label">Founded</label>
+    <div class="col-sm-10">
+      <input name="beer_club[founded]" type="number" class="form-control" id="founded" placeholder="Founded">
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+  <div class="form-group row">
+    <label for="city" class="col-sm-2 col-form-label">City</label>
+    <div class="col-sm-10">
+      <input name="beer_club[city]" type="text" class="form-control" id="city" placeholder="City">
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-primary" %>
   </div>
 <% end %>

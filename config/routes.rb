@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   # get 'places/:id', to:'places#show'
 
   post 'places', to:'places#search'
+  resources :styles
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

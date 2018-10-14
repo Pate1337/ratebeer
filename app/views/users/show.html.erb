@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong><%= @user.username %></strong>
 </p>
@@ -11,7 +9,7 @@
   </p> 
   <p>Favorite beer: <%= @user.favorite_beer.name %></p>
   <p>Favorite brewery: <%= @user.favorite_brewery.name %></p>
-  <p>Preferred style: <%= @user.favorite_style %></p>
+  <p>Preferred style: <%= @user.favorite_style.name %></p>
 <% end %>
 <p>
   <strong>Ratings</strong>

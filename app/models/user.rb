@@ -13,6 +13,14 @@ class User < ApplicationRecord
     average_rating
   end
 
+  def self.most_ratings(n)
+    sorted_by_rating_count_in_desc_order = User.all.sort_by{ |u| -(u.ratings.length || 0) }
+
+    # palauta listalta parhaat n kappaletta
+    return sorted_by_rating_count_in_desc_order.first(n)
+    # miten? ks. http://www.ruby-doc.org/core-2.5.1/Array.html
+  end
+
   def average_of(ratings)
     ratings.sum(&:score).to_f / ratings.count
   end
@@ -47,5 +55,9 @@ class User < ApplicationRecord
     end
 
     averages.max_by{ |r| r[:score] }[:brewery]
+  end
+
+  def to_s
+    "#{username}"
   end
 end
