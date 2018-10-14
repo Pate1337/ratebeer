@@ -11,7 +11,7 @@
     <% items.each do |item| %>
       <tr>
         <td><%= item %> </td>
-        <td><%= item.average_rating.round(1) %></td>
+        <td><%= round(item.average_rating) %></td>
       </tr>
     <% end %>
     </tbody>

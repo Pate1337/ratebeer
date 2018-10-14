@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:toggle_closed]
 
   # GET /users
   # GET /users.json
@@ -21,10 +22,21 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def toggle_closed
+    user = User.find(params[:id])
+    user.update_attribute :closed, (not user.closed)
+  
+    new_status = user.closed? ? "closed" : "opened"
+  
+    redirect_to user, notice:"Account #{user.username} #{new_status}"
+  end
+
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.admin = false
+    @user.closed = false
 
     respond_to do |format|
       if @user.save

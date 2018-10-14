@@ -1,6 +1,12 @@
 <p>
   <strong><%= @user.username %></strong>
 </p>
+
+<% if current_user.admin? && @user.closed? %>
+  <%= link_to "Open account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-primary" %>
+<% elsif current_user.admin? && @user.closed == false %>
+  <%= link_to "Close account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+<% end %>
 <% if @user.ratings.empty? %>
   <p>has not rate any beer</p>
 <% else %>
@@ -35,8 +41,5 @@
 </p>
 
 <p>Katsotaan deployaako travis</p>
-<% if @user == current_user %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% end %>
+<%= edit_and_destroy_buttons(@user) %>
 <%= link_to 'Back', users_path %>
