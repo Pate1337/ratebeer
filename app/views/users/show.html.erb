@@ -32,9 +32,15 @@
 </ul>
 
 <p>
-  <% if @user.beer_clubs.any? %>
+  <% if @confirmed_beerclubs.any? %>
     member of 
-    <% @user.beer_clubs.each do |club| %>
+    <% @confirmed_beerclubs.each do |club| %>
+      <li> <%= link_to club.name, club %> </li>
+    <% end %>
+  <% end %>
+  <% if @applied_beerclubs.any? %>
+    applied for
+    <% @applied_beerclubs.each do |club| %>
       <li> <%= link_to club.name, club %> </li>
     <% end %>
   <% end %>

@@ -22,15 +22,34 @@ class MembershipsController < ApplicationController
   def edit
   end
 
+  def confirm
+    user = User.find(params[:member_id])
+    beer_club = BeerClub.find(params[:beer_club_id])
+    user.memberships.each do |m|
+      if m.beer_club == beer_club
+        m.confirmed = true
+        m.save
+      end
+    end
+    redirect_to beer_club, notice:"#{user.username} approved as a member!"
+    # user = User.find(params[:id])
+    # user.update_attribute :closed, (not user.closed)
+  
+    # new_status = user.closed? ? "closed" : "opened"
+  
+    # redirect_to user, notice:"Account #{user.username} #{new_status}"
+  end
+
   # POST /memberships
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
     @membership.user = current_user
+    @membership.confirmed = false
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership.beer_club, notice: "#{current_user.username} welcome to the club!" }
+        format.html { redirect_to @membership.beer_club, notice: "#{current_user.username}, your application has been sent!" }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }

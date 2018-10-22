@@ -19,6 +19,19 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    @confirmed_members = []
+    @applied_members = []
+    @current_user_is_member = false
+    @beer_club.memberships.each do |m|
+      if m.confirmed
+        @confirmed_members.push(m.user)
+        if m.user == current_user then
+          @current_user_is_member = true
+        end
+      else
+        @applied_members.push(m.user)
+      end
+    end
     if current_user.beer_clubs.exclude?(@beer_club) then
       @membership = Membership.new
       @membership.beer_club = @beer_club
@@ -41,14 +54,18 @@ class BeerClubsController < ApplicationController
   # POST /beer_clubs.json
   def create
     @beer_club = BeerClub.new(beer_club_params)
+    # current_user on kerhon luoja.
+    # Pitää luoda membership model, jonka beer_club_id on tuo beer_club,
+    #  user_id on current_user ja confirmed on true
+    membership = Membership.new(beer_club: @beer_club, user: current_user, confirmed: true)
 
     respond_to do |format|
-      if @beer_club.save
+      if @beer_club.save && membership.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else
         format.html { render :new }
-        format.json { render json: @beer_club.errors, status: :unprocessable_entity }
+        format.json { render json: @beer_club.errors || membership.errors, status: :unprocessable_entity }
       end
     end
   end

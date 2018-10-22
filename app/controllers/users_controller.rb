@@ -12,6 +12,15 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @confirmed_beerclubs = []
+    @applied_beerclubs = []
+    @user.memberships.each do |m|
+      if m.confirmed
+        @confirmed_beerclubs.push(m.beer_club)
+      else
+        @applied_beerclubs.push(m.beer_club)
+      end
+    end
   end
 
   # GET /users/new
