@@ -1,5 +1,7 @@
 <h2>List of ratings</h2>
 
+<% cache "ratinglist", expires_in:1.minutes, skip_digest: true do %>
+
 <div class="row">
   <div class="col-sm">
     <h3>Best beers</h3>
@@ -39,3 +41,5 @@
 <p>
   Total ratings: <%= @ratings.count %>
 </p>
+
+<% end %>

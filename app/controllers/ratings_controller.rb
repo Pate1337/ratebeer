@@ -1,6 +1,8 @@
 class RatingsController < ApplicationController
   def index
-    @ratings = Rating.all
+    # expires_in määritelty ratings viewhun. Laitoin minuutin mutta kestää huomattavasti pidempään (n. 5 min)
+    return if request.format.html? && fragment_exist?("ratinglist")
+    @ratings = Rating.includes(:beer, :user).all
     @recent_ratings = Rating.recent
     @top_beers = Beer.top(3)
     @top_breweries = Brewery.top(3)

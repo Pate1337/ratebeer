@@ -38,6 +38,7 @@ gem 'jquery-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'httparty'
+gem 'rack-mini-profiler'
 
 group :development, :test do
   gem 'sqlite3'
